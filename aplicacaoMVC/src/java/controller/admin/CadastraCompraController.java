@@ -1,7 +1,7 @@
 package controller.admin;
 
-import entidade.Venda;
-import model.VendaDAO;
+import entidade.Compra;
+import model.CompraDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -11,49 +11,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "VendaController", urlPatterns = {"/admin/VendaController"})
-public class VendaController extends HttpServlet {
+@WebServlet(name = "CadastraCompraController", urlPatterns = {"/admin/CadastraCompraController"})
+public class CadastraCompraController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String acao = (String) request.getParameter("acao");
-        Venda venda = new Venda();
-        VendaDAO vendaDAO = new VendaDAO();
-        RequestDispatcher rd;        
-        
+        Compra compra = new Compra();
+        CompraDAO compraDAO = new CompraDAO();
+        RequestDispatcher rd;
+
         switch (acao) {
             case "Listar":
-                ArrayList<Venda> listaVendas = vendaDAO.getAll();
-                request.setAttribute("listaVendas", listaVendas);
 
-                rd = request.getRequestDispatcher("/views/admin/vendas/lista_vendas.jsp");
+                ArrayList<Compra> listaCompras = compraDAO.getAll();
+                request.setAttribute("listaCompras", listaCompras);
+                rd = request.getRequestDispatcher("/views/admin/compra_comprador/lista_compras.jsp");
                 rd.forward(request, response);
+
                 break;
-                
+
             case "Alterar":
             case "Excluir":
+
                 int id = Integer.parseInt(request.getParameter("id"));
-                venda = vendaDAO.get(id);
-
-                request.setAttribute("venda", venda);
+                compra = compraDAO.get(id);
+                request.setAttribute("compra", compra);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
-
-                rd = request.getRequestDispatcher("/views/admin/vendas/form_vendas.jsp");
+                rd = request.getRequestDispatcher("/views/admin/compra_comprador/form_compras.jsp");
                 rd.forward(request, response);
+
                 break;
-                
+
             case "Incluir":
-                request.setAttribute("venda", venda);
+                request.setAttribute("compra", compra);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
-
-                rd = request.getRequestDispatcher("/views/admin/vendas/form_vendas.jsp");
+                rd = request.getRequestDispatcher("/views/admin/compra_comprador/form_compras.jsp");
                 rd.forward(request, response);
-                break;
         }
+
     }
 
     @Override
@@ -61,66 +61,67 @@ public class VendaController extends HttpServlet {
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        int quantidadeVenda = Integer.parseInt(request.getParameter("quantidadeVenda"));
-        String dataVenda = request.getParameter("dataVenda");
-        double valorVenda = Double.parseDouble(request.getParameter("valorVenda"));
-        int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+        int quantidadeCompra = Integer.parseInt(request.getParameter("quantidadeCompra"));
+        String dataCompra = request.getParameter("dataCompra"); // corrigir tipo
+        double valorCompra = Double.parseDouble(request.getParameter("valorCompra"));
+        int idFornecedor = Integer.parseInt(request.getParameter("idFornecedor"));
         int idProduto = Integer.parseInt(request.getParameter("idProduto"));
         int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));
         String btEnviar = request.getParameter("btEnviar");
         RequestDispatcher rd;
 
-        if (quantidadeVenda == 0) {
-            Venda venda = new Venda();
+        if (quantidadeCompra == 0) {
+            Compra compra = new Compra();
             switch (btEnviar) {
                 case "Alterar":
                 case "Excluir":
                     try {
-                        VendaDAO vendaDAO = new VendaDAO();
-                        venda = vendaDAO.get(id);
+                        CompraDAO compraDAO = new CompraDAO();
+                        compra = compraDAO.get(id);
 
                     } catch (Exception ex) {
                         System.out.println(ex.getMessage());
-                        throw new RuntimeException("Falha em uma query para cadastro de venda");
+                        throw new RuntimeException("Falha em uma query para cadastro de usuario");
                     }
                     break;
             }
 
-            request.setAttribute("venda", venda);
+            request.setAttribute("compra", compra);
             request.setAttribute("acao", btEnviar);
             request.setAttribute("msgError", "É necessário preencher todos os campos");
-            rd = request.getRequestDispatcher("/views/admin/venda/form_vendas.jsp");
+            rd = request.getRequestDispatcher("/views/admin/categoria/form_compras.jsp");
             rd.forward(request, response);
 
         } else {
-            
-            Venda venda = new Venda(id, quantidadeVenda, dataVenda, valorVenda, idCliente, idProduto, idFuncionario);
-            VendaDAO vendaDAO = new VendaDAO();
+
+            Compra compra = new Compra(id, quantidadeCompra, dataCompra, valorCompra, idFornecedor, idProduto, idFuncionario);
+            CompraDAO compraDAO = new CompraDAO();
 
             try {
                 switch (btEnviar) {
                     case "Incluir":
-                        vendaDAO.insert(venda);
+                        compraDAO.insert(compra);
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
                         break;
                     case "Alterar":
-                        vendaDAO.update(venda);
+                        compraDAO.update(compra);
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
-                        vendaDAO.delete(id);
+                        compraDAO.delete(id);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                 }
 
-                request.setAttribute("link", "/aplicacaoMVC/admin/VendaController?acao=Listar");
+                request.setAttribute("link", "/aplicacaoMVC/admin/CadastraCompraController?acao=Listar");
                 rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
                 rd.forward(request, response);
 
             } catch (IOException | ServletException ex) {
                 System.out.println(ex.getMessage());
-                throw new RuntimeException("Falha na query para cadastro de venda");
+                throw new RuntimeException("Falha na query para cadastro de usuario");
             }
         }
     }
+
 }

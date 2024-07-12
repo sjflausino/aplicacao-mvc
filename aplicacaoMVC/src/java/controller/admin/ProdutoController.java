@@ -1,18 +1,17 @@
 package controller.admin;
 
 import entidade.Produto;
+import model.ProdutoDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ProdutoDAO;
 
 @WebServlet(name = "ProdutoController", urlPatterns = {"/admin/ProdutoController"})
 public class ProdutoController extends HttpServlet {
@@ -21,7 +20,6 @@ public class ProdutoController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // get parametro ação indicando o que fazer
         String acao = (String) request.getParameter("acao");
         Produto produto = new Produto();
         ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -37,13 +35,12 @@ public class ProdutoController extends HttpServlet {
 
             case "Alterar":
             case "Excluir":
-                // get parametro ação indicando sobre qual categoria será a ação
                 int id = Integer.parseInt(request.getParameter("id"));
                  {
                     try {
                         produto = produtoDAO.get(id);
                     } catch (Exception ex) {
-                        Logger.getLogger(AdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
 
@@ -62,9 +59,7 @@ public class ProdutoController extends HttpServlet {
 
                 rd = request.getRequestDispatcher("/views/admin/produto/tabela_produtos.jsp");
                 rd.forward(request, response);
-
         }
-
     }
 
     @Override
@@ -79,11 +74,8 @@ public class ProdutoController extends HttpServlet {
         int quantidade_disponivel = Integer.parseInt(request.getParameter("quantidade_disponivel"));
         String liberado_venda = request.getParameter("liberado_venda");
         int id_categoria = Integer.parseInt(request.getParameter("id_categoria"));
-
         String btEnviar = request.getParameter("btEnviar");
-
         RequestDispatcher rd;
-
         Produto produto = new Produto();
 
         if (nome_produto.isEmpty() || descricao.isEmpty() || preco_compra == 0 || preco_venda == 0 || quantidade_disponivel == 0 || liberado_venda.isEmpty() || id_categoria == 0) {
@@ -104,9 +96,7 @@ public class ProdutoController extends HttpServlet {
 
             request.setAttribute("produto", produto);
             request.setAttribute("acao", btEnviar);
-
             request.setAttribute("msgError", "É necessário preencher todos os campos");
-
             rd = request.getRequestDispatcher("/views/admin/produto/tabela_produtos.jsp");
             rd.forward(request, response);
 
@@ -120,8 +110,6 @@ public class ProdutoController extends HttpServlet {
             produto.setQuantidade_disponivel(quantidade_disponivel);
             produto.setLiberado_venda(liberado_venda);
             produto.setId_categoria(id_categoria);
-
-
             ProdutoDAO produtoDAO = new ProdutoDAO();
 
             try {
@@ -146,7 +134,7 @@ public class ProdutoController extends HttpServlet {
 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
-                throw new RuntimeException("Falha em uma query para cadastro de funcionario!", ex);
+                throw new RuntimeException("Falha na query para cadastro de funcionario!", ex);
             }
         }
     }

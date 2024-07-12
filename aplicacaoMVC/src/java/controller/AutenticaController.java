@@ -1,6 +1,7 @@
 package controller;
 
-import entidade.Usuario;
+import entidade.Funcionario;
+import model.FuncionarioDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,12 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UsuarioDAO;
 
-/**
- *
- * @author Leonardo
- */
+
 @WebServlet(name = "AutenticaController", urlPatterns = {"/AutenticaController"})
 public class AutenticaController extends HttpServlet {
 
@@ -43,21 +40,21 @@ public class AutenticaController extends HttpServlet {
             rd.forward(request, response);
 
         } else {
-            Usuario usuarioObtido;
-            Usuario usuario = new Usuario(cpf_user, senha_user);
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            Funcionario funcionarioObtido;
+            Funcionario funcionario = new Funcionario(cpf_user, senha_user);
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
             try {
-                usuarioObtido = usuarioDAO.Logar(usuario);
+                funcionarioObtido = funcionarioDAO.Logar(funcionario);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
                 throw new RuntimeException("Falha na query para Logar");
             }
 
-            if (usuarioObtido.getId() != 0) {
+            if (funcionarioObtido.getId() != 0) {
                 HttpSession session = request.getSession();
-                session.setAttribute("usuario", usuarioObtido);
+                session.setAttribute("funcionario", funcionarioObtido);
 
-                rd = request.getRequestDispatcher("/admin/dashboard");
+                rd = request.getRequestDispatcher("views/admin/dashboard/areaRestrita.jsp");
                 rd.forward(request, response);
 
             } else {
