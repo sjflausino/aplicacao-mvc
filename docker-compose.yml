@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql-dump-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root # Defina a senha do usuário root
+      MYSQL_DATABASE: dbjava
+    ports:
+      - 3306:3306 # Mapeie a porta do contêiner (3306) para a porta do host (3306)
+    volumes:
+      - ./database:/var/lib/mysql # Crie um volume no contêiner para persistir os dados do MySQL
+      - ./init-db:/docker-entrypoint-initdb.d
+
