@@ -49,7 +49,7 @@ public class AdmController extends HttpServlet {
                 try {
                     funcionario = funcionarioDAO.getFuncionario(id);
                 } catch (Exception ex) {
-                    Logger.getLogger(AdministradorController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
 
@@ -151,7 +151,7 @@ public class AdmController extends HttpServlet {
                         break;
                 }
 
-                request.setAttribute("link", "/aplicacaoMVC/admin/AdministradorController?acao=Listar");
+                request.setAttribute("link", "/aplicacaoMVC/admin/AdminController?acao=Listar");
                 rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
                 rd.forward(request, response);
 
