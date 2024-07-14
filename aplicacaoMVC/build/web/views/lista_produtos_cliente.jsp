@@ -47,13 +47,13 @@
                                 for (Produto produto : listaProdutos) {
                                     out.println("<tr>");
                                     out.println("<th>" + produto.getId() + "</th>");
-                                    out.println("<td>" + produto.getNome_produto() + "</td>");
+                                    out.println("<td>" + produto.getNomeProduto() + "</td>");
                                     out.println("<td>" + produto.getDescricao() + "</td>");
-                                    out.println("<td>" + produto.getPreco_compra() + "</td>");
-                                    out.println("<td>" + produto.getPreco_venda() + "</td>");
-                                    out.println("<td>" + produto.getQuantidade_disponivel() + "</td>");
-                                    out.println("<td>" + produto.getLiberado_venda() + "</td>");
-                                    out.println("<td>" + produto.getId_categoria() + "</td>");
+                                    out.println("<td>" + produto.getPrecoCompra() + "</td>");
+                                    out.println("<td>" + produto.getPrecoVenda() + "</td>");
+                                    out.println("<td>" + produto.getQuantidadeDisponivel() + "</td>");
+                                    out.println("<td>" + produto.getLiberadoVenda() + "</td>");
+                                    out.println("<td>" + produto.getIdCategoria() + "</td>");
                             %>
 
                         <%   out.println("</tr>");
