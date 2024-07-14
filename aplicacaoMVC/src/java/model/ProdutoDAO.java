@@ -13,20 +13,20 @@ public class ProdutoDAO implements Dao<Produto> {
         Conexao conexao = new Conexao();
         try {
             Produto produto = new Produto();
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM produtos WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM produtos WHERE id = ? ");
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
 
             if (resultado != null) {
                 while (resultado.next()) {
-                    produto.setId(Integer.parseInt(resultado.getString("ID")));
-                    produto.setNomeProduto(resultado.getString("NOME_PRODUTO"));
-                    produto.setDescricao(resultado.getString("DESCRICAO"));
-                    produto.setPrecoCompra(Double.parseDouble(resultado.getString("PRECO_COMPRA")));
-                    produto.setPrecoVenda(Double.parseDouble(resultado.getString("PRECO_VENDA")));
-                    produto.setQuantidadeDisponivel(Integer.parseInt(resultado.getString("QUANTIDADE_DISPONIVEL")));
-                    produto.setLiberadoVenda(resultado.getString("LIBERADO_VENDA"));
-                    produto.setIdCategoria(Integer.parseInt(resultado.getString("LIBERADO_VENDA")));
+                    produto.setId(Integer.parseInt(resultado.getString("id")));
+                    produto.setNomeProduto(resultado.getString("nome_produto"));
+                    produto.setDescricao(resultado.getString("descricao"));
+                    produto.setPrecoCompra(Double.parseDouble(resultado.getString("preco_compra")));
+                    produto.setPrecoVenda(Double.parseDouble(resultado.getString("preco_venda")));
+                    produto.setQuantidadeDisponivel(Integer.parseInt(resultado.getString("quantidade_disponivel")));
+                    produto.setLiberadoVenda(resultado.getString("liberado_venda"));
+                    produto.setIdCategoria(Integer.parseInt(resultado.getString("liberado_venda")));
                 }
             }
             return produto;
@@ -71,14 +71,14 @@ public class ProdutoDAO implements Dao<Produto> {
             if (resultado != null) {
                 while (resultado.next()) {
                     Produto produto = new Produto(
-                        resultado.getInt("ID"),
-                        resultado.getString("NOME_PRODUTO"),
-                        resultado.getString("DESCRICAO"),
-                        resultado.getDouble("PRECO_COMPRA"),
-                        resultado.getDouble("PRECO_VENDA"),
-                        resultado.getInt("QUANTIDADE_DISPONIVEL"),
-                        resultado.getString("LIBERADO_VENDA"),                                                
-                        resultado.getInt("ID_CATEGORIA")
+                        resultado.getInt("id"),
+                        resultado.getString("nome_produto"),
+                        resultado.getString("descricao"),
+                        resultado.getDouble("preco_compra"),
+                        resultado.getDouble("preco_venda"),
+                        resultado.getInt("quantidade_disponivel"),
+                        resultado.getString("liberado_venda"),                                                
+                        resultado.getInt("id_categoria")
                     );
                     meusProdutos.add(produto);
                 }
@@ -95,7 +95,7 @@ public class ProdutoDAO implements Dao<Produto> {
     public void update(Produto produto) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE produtos SET nome_produto = ?, descricao = ?, preco_compra = ?, preco_venda = ?, quantidade_disponivel = ?, liberado_venda = ?, id_categoria = ?   WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE produtos SET nome_produto = ?, descricao = ?, preco_compra = ?, preco_venda = ?, quantidade_disponivel = ?, liberado_venda = ?, id_categoria = ?  WHERE id = ? ");
             sql.setString(1, produto.getNomeProduto());
             sql.setString(2, produto.getDescricao());
             sql.setDouble(3, produto.getPrecoCompra());

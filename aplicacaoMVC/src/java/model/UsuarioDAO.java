@@ -1,10 +1,10 @@
 package model;
 
+import entidade.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import entidade.Usuario;
 
 /*
 -- Estrutura da tabela `usuarios`
@@ -48,11 +48,11 @@ public class UsuarioDAO {
             ResultSet resultado = sql.executeQuery();
             if (resultado != null) {
                 while (resultado.next()) {
-                    usuario.setId(Integer.parseInt(resultado.getString("ID")));
-                    usuario.setNome(resultado.getString("NOME"));
-                    usuario.setCpf(resultado.getString("CPF"));
-                    usuario.setEndereco(resultado.getString("ENDERECO"));
-                    usuario.setSenha(resultado.getString("SENHA"));
+                    usuario.setId(Integer.parseInt(resultado.getString("id")));
+                    usuario.setNome(resultado.getString("nome"));
+                    usuario.setCpf(resultado.getString("cpf"));
+                    usuario.setEndereco(resultado.getString("endereco"));
+                    usuario.setSenha(resultado.getString("senha"));
                 }
             }
             return usuario;
@@ -67,7 +67,7 @@ public class UsuarioDAO {
     public void Alterar(Usuario Usuario) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE usuarios SET nome = ?, cpf = ?, endereco = ?, senha = ?  WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE usuarios SET nome = ?, cpf = ?, endereco = ?, senha = ?  WHERE id = ? ");
             sql.setString(1, Usuario.getNome());
             sql.setString(2, Usuario.getCpf());
             sql.setString(3, Usuario.getEndereco());
@@ -106,10 +106,10 @@ public class UsuarioDAO {
             ResultSet resultado = preparedStatement.executeQuery();
             if (resultado != null) {
                 while (resultado.next()) {
-                    Usuario usuario = new Usuario(resultado.getString("NOME"),
-                            resultado.getString("CPF"),
-                            resultado.getString("ENDERECO"),
-                            resultado.getString("SENHA"));
+                    Usuario usuario = new Usuario(resultado.getString("nome"),
+                            resultado.getString("cpf"),
+                            resultado.getString("endereco"),
+                            resultado.getString("senha"));
                     usuario.setId(Integer.parseInt(resultado.getString("id")));
                     meusUsuarios.add(usuario);
                 }
@@ -132,11 +132,11 @@ public class UsuarioDAO {
             Usuario usuarioObtido = new Usuario();
             if (resultado != null) {
                 while (resultado.next()) {
-                    usuarioObtido.setId(Integer.parseInt(resultado.getString("ID")));
-                    usuarioObtido.setNome(resultado.getString("NOME"));
-                    usuarioObtido.setCpf(resultado.getString("CPF"));
-                    usuarioObtido.setEndereco(resultado.getString("ENDERECO"));
-                    usuarioObtido.setSenha(resultado.getString("SENHA"));
+                    usuarioObtido.setId(Integer.parseInt(resultado.getString("id")));
+                    usuarioObtido.setNome(resultado.getString("nome"));
+                    usuarioObtido.setCpf(resultado.getString("cpf"));
+                    usuarioObtido.setEndereco(resultado.getString("endereco"));
+                    usuarioObtido.setSenha(resultado.getString("senha"));
                 }
             }
             return usuarioObtido;

@@ -13,22 +13,22 @@ public class ClienteDAO implements Dao<Cliente> {
         Conexao conexao = new Conexao();
         try {
             Cliente cliente = new Cliente();
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM clientes WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM clientes WHERE id = ? ");
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
 
             if (resultado != null) {
                 while (resultado.next()) {
-                    cliente.setId(Integer.parseInt(resultado.getString("ID")));
-                    cliente.setNome(resultado.getString("NOME"));
-                    cliente.setCpf(resultado.getString("CPF"));
-                    cliente.setEndereco(resultado.getString("ENDERECO"));
-                    cliente.setBairro(resultado.getString("BAIRRO"));
-                    cliente.setCidade(resultado.getString("CIDADE"));
-                    cliente.setUf(resultado.getString("UF"));
-                    cliente.setCep(resultado.getString("CEP"));
-                    cliente.setTelefone(resultado.getString("TELEFONE"));
-                    cliente.setEmail(resultado.getString("EMAIL"));
+                    cliente.setId(Integer.parseInt(resultado.getString("id")));
+                    cliente.setNome(resultado.getString("nome"));
+                    cliente.setCpf(resultado.getString("cpf"));
+                    cliente.setEndereco(resultado.getString("endereco"));
+                    cliente.setBairro(resultado.getString("bairro"));
+                    cliente.setCidade(resultado.getString("cidade"));
+                    cliente.setUf(resultado.getString("uf"));
+                    cliente.setCep(resultado.getString("cep"));
+                    cliente.setTelefone(resultado.getString("telefone"));
+                    cliente.setEmail(resultado.getString("email"));
                 }
             }
             return cliente;
@@ -76,16 +76,16 @@ public class ClienteDAO implements Dao<Cliente> {
             if (resultado != null) {
                 while (resultado.next()) {
                     Cliente cliente = new Cliente(
-                        resultado.getInt("ID"),
-                        resultado.getString("NOME"),
-                        resultado.getString("CPF"),
-                        resultado.getString("ENDERECO"),
-                        resultado.getString("BAIRRO"),
-                        resultado.getString("CIDADE"),
-                        resultado.getString("UF"),
-                        resultado.getString("CEP"),
-                        resultado.getString("TELEFONE"),
-                        resultado.getString("EMAIL")
+                        resultado.getInt("id"),
+                        resultado.getString("nome"),
+                        resultado.getString("cpf"),
+                        resultado.getString("endereco"),
+                        resultado.getString("bairro"),
+                        resultado.getString("cidade"),
+                        resultado.getString("uf"),
+                        resultado.getString("cep"),
+                        resultado.getString("telefone"),
+                        resultado.getString("email")
                     );
                     meusClientes.add(cliente);
                 }
@@ -103,7 +103,7 @@ public class ClienteDAO implements Dao<Cliente> {
     public void update(Cliente cliente) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Clientes SET nome = ?, cpf = ?, endereco = ?, bairro = ?, cidade = ?, uf = ?, cep = ?, telefone = ?, email = ?  WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Clientes SET nome = ?, cpf = ?, endereco = ?, bairro = ?, cidade = ?, uf = ?, cep = ?, telefone = ?, email = ?  WHERE id = ? ");
             sql.setString(1, cliente.getNome());
             sql.setString(2, cliente.getCpf());
             sql.setString(3, cliente.getEndereco());
@@ -127,7 +127,7 @@ public class ClienteDAO implements Dao<Cliente> {
     public void delete(int id) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM clientes WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM clientes WHERE id = ? ");
             sql.setInt(1, id);
             sql.executeUpdate();
 

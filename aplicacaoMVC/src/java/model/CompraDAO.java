@@ -14,21 +14,21 @@ public class CompraDAO implements Dao<Compra> {
         Conexao conexao = new Conexao();
         try {
             Compra compra = new Compra();
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM compras WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM compras WHERE id = ? ");
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
 
             if (resultado != null) {
                 while (resultado.next()) {
-                    Date date = new Date(resultado.getDate("DATA_COMPRA").getTime());
+                    Date date = new Date(resultado.getDate("data_compra").getTime());
 
-                    compra.setId(Integer.parseInt(resultado.getString("ID")));
-                    compra.setQuantidadeCompra(resultado.getInt("QUANTIDADE_COMPRA"));
+                    compra.setId(Integer.parseInt(resultado.getString("id")));
+                    compra.setQuantidadeCompra(resultado.getInt("quantidade_compra"));
                     compra.setDataCompra(date);
-                    compra.setValorCompra(Double.parseDouble(resultado.getString("VALOR_COMPRA")));
-                    compra.setIdFornecedor(Integer.parseInt(resultado.getString("ID_FORNECEDOR")));
-                    compra.setIdProduto(Integer.parseInt(resultado.getString("ID_PRODUTO")));
-                    compra.setIdComprador(Integer.parseInt(resultado.getString("ID_COMPRADOR")));
+                    compra.setValorCompra(Double.parseDouble(resultado.getString("valor_compra")));
+                    compra.setIdFornecedor(Integer.parseInt(resultado.getString("id_fornecedor")));
+                    compra.setIdProduto(Integer.parseInt(resultado.getString("id_produto")));
+                    compra.setIdComprador(Integer.parseInt(resultado.getString("id_comprador")));
 
                 }
             }
@@ -76,13 +76,13 @@ public class CompraDAO implements Dao<Compra> {
             if (resultado != null) {
                 while (resultado.next()) {
                     Compra compra = new Compra(
-                        resultado.getInt("ID"),
-                        resultado.getInt("QUANTIDADE_COMPRA"),
-                        resultado.getDate("DATA_COMPRA"),
-                        resultado.getDouble("VALOR_COMPRA"),
-                        resultado.getInt("ID_FORNECEDOR"),
-                        resultado.getInt("ID_PRODUTO"),
-                        resultado.getInt("ID_FUNCIONARIO")
+                        resultado.getInt("id"),
+                        resultado.getInt("quantidade_compra"),
+                        resultado.getDate("data_compra"),
+                        resultado.getDouble("valor_compra"),
+                        resultado.getInt("id_fornecedor"),
+                        resultado.getInt("id_produto"),
+                        resultado.getInt("id_funcionario")
                     );
                     meusCompras.add(compra);
                 }
@@ -99,7 +99,7 @@ public class CompraDAO implements Dao<Compra> {
     public void update(Compra compra) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE compras SET quantidade_compra = ?, data_compra = ?, valor_compra = ?, id_fornecedor = ?, id_produto = ?, id_comprador = ?  WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE compras SET quantidade_compra = ?, data_compra = ?, valor_compra = ?, id_fornecedor = ?, id_produto = ?, id_comprador = ?  WHERE id = ? ");
             java.sql.Date date = new java.sql.Date(compra.getDataCompra().getTime());
 
             sql.setDouble(1, compra.getQuantidadeCompra());
@@ -122,7 +122,7 @@ public class CompraDAO implements Dao<Compra> {
     public void delete(int id) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM compras WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM compras WHERE id = ? ");
             sql.setInt(1, id);
             sql.executeUpdate();
 

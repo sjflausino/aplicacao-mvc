@@ -16,6 +16,11 @@ public class Funcionario {
         this.papel = papel;
     }
 
+    public Funcionario(String cpf, String senha) {
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+    
     public Funcionario() {
         this.id = 0;
         this.nome = "";

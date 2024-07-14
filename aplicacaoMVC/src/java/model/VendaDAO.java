@@ -14,21 +14,21 @@ public class VendaDAO implements Dao<Venda> {
         Conexao conexao = new Conexao();
         try {
             Venda venda = new Venda();
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM vendas WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM vendas WHERE id = ? ");
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
 
             if (resultado != null) {
                 while (resultado.next()) {
-                    Date date = new Date(resultado.getDate("DATA_VENDA").getTime());
+                    Date date = new Date(resultado.getDate("data_venda").getTime());
 
-                    venda.setId(Integer.parseInt(resultado.getString("ID")));
-                    venda.setQuantidadeVenda(Integer.parseInt(resultado.getString("QUANTIDADE_VENDA")));
+                    venda.setId(Integer.parseInt(resultado.getString("id")));
+                    venda.setQuantidadeVenda(Integer.parseInt(resultado.getString("quantidade_venda")));
                     venda.setDataVenda(date);
-                    venda.setValorVenda(Integer.parseInt(resultado.getString("VALOR_VENDA")));
-                    venda.setIdCliente(resultado.getInt("ID_CLIENTE"));
-                    venda.setIdProduto(Integer.parseInt(resultado.getString("ID_PRODUTO")));
-                    venda.setIdVendedor(Integer.parseInt(resultado.getString("ID_VENDEDOR")));
+                    venda.setValorVenda(Integer.parseInt(resultado.getString("valor_venda")));
+                    venda.setIdCliente(resultado.getInt("id_cliente"));
+                    venda.setIdProduto(Integer.parseInt(resultado.getString("id_produto")));
+                    venda.setIdVendedor(Integer.parseInt(resultado.getString("id_vendedor")));
                 }
             }
             return venda;
@@ -75,13 +75,13 @@ public class VendaDAO implements Dao<Venda> {
                 while (resultado.next()) {
 
                     Venda venda = new Venda(
-                        resultado.getInt("ID"),
-                        resultado.getInt("QUANTIDADE_VENDA"),
-                        resultado.getDate("DATA_VENDA"),
-                        resultado.getDouble("VALOR_VENDA"),
-                        resultado.getInt("ID_CLIENTE"),
-                        resultado.getInt("ID_PRODUTO"),
-                        resultado.getInt("ID_VENDEDOR")                   
+                        resultado.getInt("id"),
+                        resultado.getInt("quantidade_venda"),
+                        resultado.getDate("data_venda"),
+                        resultado.getDouble("valor_venda"),
+                        resultado.getInt("id_cliente"),
+                        resultado.getInt("id_produto"),
+                        resultado.getInt("id_vendedor")                   
                     );
 
                     meusVendas.add(venda);
@@ -100,7 +100,7 @@ public class VendaDAO implements Dao<Venda> {
     public void update(Venda venda) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Vendas SET quantidadeVenda = ?, dataVenda = ?, valorVenda = ?, idCliente = ?, idProduto = ?, idVendedor = ?  WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Vendas SET quantidadeVenda = ?, dataVenda = ?, valorVenda = ?, idCliente = ?, idProduto = ?, idVendedor = ?  WHERE id = ? ");
             java.sql.Date date = new java.sql.Date(venda.getDataVenda().getTime());
 
             sql.setInt(1, venda.getQuantidadeVenda());
@@ -123,7 +123,7 @@ public class VendaDAO implements Dao<Venda> {
     public void delete(int id) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM vendas WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM vendas WHERE id = ? ");
             sql.setInt(1, id);
             sql.executeUpdate();
 

@@ -36,11 +36,11 @@ public class FuncionarioDAO {
             ResultSet resultado = sql.executeQuery();
             if (resultado != null) {
                 while (resultado.next()) {
-                    funcionario.setId(Integer.parseInt(resultado.getString("ID")));
-                    funcionario.setNome(resultado.getString("NOME"));
-                    funcionario.setCpf(resultado.getString("CPF"));
-                    funcionario.setSenha(resultado.getString("SENHA"));
-                    funcionario.setPapel(resultado.getString("PAPEL"));
+                    funcionario.setId(Integer.parseInt(resultado.getString("id")));
+                    funcionario.setNome(resultado.getString("nome"));
+                    funcionario.setCpf(resultado.getString("cpf"));
+                    funcionario.setSenha(resultado.getString("senha"));
+                    funcionario.setPapel(resultado.getString("papel"));
                 }
             }
             return funcionario;
@@ -97,10 +97,10 @@ public class FuncionarioDAO {
             if (resultado != null) {
                 while (resultado.next()) {
                     Funcionario funcionario = new Funcionario(
-                            resultado.getString("NOME"),
-                            resultado.getString("CPF"),
-                            resultado.getString("SENHA"),
-                            resultado.getString("PAPEL")
+                            resultado.getString("nome"),
+                            resultado.getString("cpf"),
+                            resultado.getString("senha"),
+                            resultado.getString("papel")
                     );
                     funcionario.setId(Integer.parseInt(resultado.getString("id")));
                     meusFuncionarios.add(funcionario);
@@ -124,10 +124,10 @@ public class FuncionarioDAO {
             Funcionario funcionarioObtido = new Funcionario();
             if (resultado != null) {
                 while (resultado.next()) {
-                    funcionarioObtido.setId(Integer.parseInt(resultado.getString("ID")));
-                    funcionarioObtido.setNome(resultado.getString("NOME"));
-                    funcionarioObtido.setCpf(resultado.getString("CPF"));
-                    funcionarioObtido.setPapel(resultado.getString("PAPEL"));
+                    funcionarioObtido.setId(Integer.parseInt(resultado.getString("id")));
+                    funcionarioObtido.setNome(resultado.getString("nome"));
+                    funcionarioObtido.setCpf(resultado.getString("cpf"));
+                    funcionarioObtido.setPapel(resultado.getString("papel"));
                 }
             }
             return funcionarioObtido;
