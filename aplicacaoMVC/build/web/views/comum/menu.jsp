@@ -30,7 +30,7 @@
                             <a class="nav-link" href="/aplicacaoMVC/admin/CategoriaController?acao=Listar">Categorias</a>                            
                             <a class="nav-link" href="/aplicacaoMVC/admin/logOut">Logout</a>
                 <%  } else { %>
-                            <a class="nav-link" href="/aplicacaoMVC/MostraProdutoController?acao=ListarDisponiveis">Visualizar produtos disponíveis</a>
+                            <a class="nav-link" href="/aplicacaoMVC/MostraProdutoController?acao=ListarDisponiveis">Produtos disponíveis</a>
                             <a class="nav-link" href="/aplicacaoMVC/AutenticaController?acao=Login">Login</a>
                 <%    }
                     }%>
