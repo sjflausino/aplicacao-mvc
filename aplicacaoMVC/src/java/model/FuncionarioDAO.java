@@ -117,7 +117,7 @@ public class FuncionarioDAO {
     public Funcionario Logar(Funcionario funcionario) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM funcionarios WHERE cpf=? and senha =? LIMIT 1");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM funcionarios WHERE cpf =? and senha =? LIMIT 1");
             sql.setString(1, funcionario.getCpf());
             sql.setString(2, funcionario.getSenha());
             ResultSet resultado = sql.executeQuery();
